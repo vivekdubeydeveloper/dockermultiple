@@ -1,0 +1,46 @@
+RUN SINGLE PROJECT ON DOCKER
+1) run mvn clean install
+2) It will create jar file in target directory
+3) create Docker file with following content
+
+From openjdk:8
+EXPOSE 8081
+copy ./target/employee-0.0.1-SNAPSHOT.jar employee-0.0.1-SNAPSHOT.jar
+CMD ["java","-jar","employee-0.0.1-SNAPSHOT.jar"] 
+
+4)Build image from docker file using command
+
+docker image build -t employee .
+
+5)docker container run --name employee -p 8080:8080 -d employee
+
+--------docker container command for---------------------
+docker container stop employee
+docker container start employee
+docker container remove employee
+
+--docker image command------------------------------------
+docker image rm employeee
+
+docker images
+
+----docker processes--------------------------------------
+docker ps
+
+---docker logs--------------------------------------------
+docker logs employee
+
+------docker network--------------------------------------
+docker network ls
+docker network create employee
+
+
+----------------------inter docker communication----------------------
+1) we need to create a docker network bridge type
+docker network create employee
+
+2)we need to run docker image with network parameter
+docker container run --network employee --name employee -p 8080:8080 -d employee
+
+3)if i want to access service of one docker to other so instead of localhost we need to use docker container name(bridge network is mandatory)
+private static String URL="http://employee:8080/employee";
