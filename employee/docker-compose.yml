@@ -1,0 +1,21 @@
+version: "3"
+services:
+  dept:
+    image: dept
+    ports:
+      - "9090:9090"
+    networks:
+      - employee-dept
+    depends_on:
+      - employee
+ 
+  employee:
+    image: employee
+    ports:
+      - "8080:8080"
+    networks:
+      - employee-dept 
+
+networks:
+  employee-dept:
+ 
